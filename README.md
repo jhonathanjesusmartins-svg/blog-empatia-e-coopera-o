@@ -1,1 +1,0 @@
-# blog-empatia-e-coopera-o
