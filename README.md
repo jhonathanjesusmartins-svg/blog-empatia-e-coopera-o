@@ -180,10 +180,10 @@ blog empatia e cooperação<!DOCTYPE html>
 
 <script>
     // Chave única para o banco de dados do navegador
-    const CHAVE_STORAGE = "blog_empatia_posts";
+    constCHAVE_STORAGE = "blog_empatia_posts";
 
     // Posts de exemplo iniciais
-    const POSTS_PADRAO = [
+    constPOSTS_PADRAO = [
         {
             id: 1,
             titulo: "O Poder da Empatia no Dia a Dia",
