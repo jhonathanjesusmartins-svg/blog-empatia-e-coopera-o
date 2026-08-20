@@ -367,9 +367,9 @@
 </main>
 
 <script>
-    const CHAVE_STORAGE = "elosocial_posts_v4";
+    constCHAVE_STORAGE = "elosocial_posts_v4";
 
-    const POSTS_PADRAO = [
+    constPOSTS_PADRAO = [
         {
             id: 1,
             autor: "Ana Souza",
@@ -399,32 +399,32 @@
         document.getElementById("btnPublicar").addEventListener("click", criarPost);
     });
 
-    function carregarPosts() {
-        const dadosSalvos = localStorage.getItem(CHAVE_STORAGE);
-        let posts = dadosSalvos ? JSON.parse(dadosSalvos) : POSTS_PADRAO;
+    functioncarregarPosts() {
+        constdadosSalvos = localStorage.getItem(CHAVE_STORAGE);
+        letposts = dadosSalvos ? JSON.parse(dadosSalvos) : POSTS_PADRAO;
 
         if (!dadosSalvos) salvarNoStorage(posts);
 
         renderizarPosts(posts);
     }
 
-    function criarPost() {
-        const autorVal = document.getElementById("autor").value.trim();
-        const tituloVal = document.getElementById("titulo").value.trim();
-        const categoriaVal = document.getElementById("categoria").value;
-        const palavrasVal = document.getElementById("palavrasChave").value.trim();
-        const textoVal = document.getElementById("texto").value.trim();
+    functioncriarPost() {
+        constautorVal = document.getElementById("autor").value.trim();
+        consttituloVal = document.getElementById("titulo").value.trim();
+        constcategoriaVal = document.getElementById("categoria").value;
+        constpalavrasVal = document.getElementById("palavrasChave").value.trim();
+        consttextoVal = document.getElementById("texto").value.trim();
 
         if (tituloVal === "" || textoVal === "") {
             alert("Por favor, preencha pelo menos o Título e a Mensagem antes de publicar!");
             return;
         }
 
-        const listaPalavras = palavrasVal !== "" 
+        constlistaPalavras = palavrasVal !== "" 
             ? palavrasVal.split(",").map(p => p.trim()).filter(p => p !== "") 
             : ["empatia", "atitude"];
 
-        const novoPost = {
+        constnovoPost = {
             id: Date.now(),
             autor: autorVal || "Anônimo",
             titulo: tituloVal,
@@ -435,7 +435,7 @@
             data: new Date().toLocaleDateString("pt-BR")
         };
 
-        const posts = obterPostsSalvos();
+        constposts = obterPostsSalvos();
         posts.unshift(novoPost);
 
         salvarNoStorage(posts);
@@ -450,9 +450,9 @@
         alert("✨ Sua atitude foi publicada com sucesso!");
     }
 
-    function curtirPost(id) {
-        const posts = obterPostsSalvos();
-        const post = posts.find(p => p.id === id);
+    functioncurtirPost(id) {
+        constposts = obterPostsSalvos();
+        constpost = posts.find(p => p.id === id);
         if (post) {
             post.curtidas += 1;
             salvarNoStorage(posts);
@@ -460,19 +460,19 @@
         }
     }
 
-    function deletarPost(id) {
+    functiondeletarPost(id) {
         if (confirm("Deseja realmente excluir esta publicação?")) {
-            const posts = obterPostsSalvos().filter(p => p.id !== id);
+            constposts = obterPostsSalvos().filter(p => p.id !== id);
             salvarNoStorage(posts);
             renderizarPosts(posts);
         }
     }
 
-    function filtrarPosts() {
-        const termo = document.getElementById("campoBusca").value.toLowerCase();
-        const posts = obterPostsSalvos();
+    functionfiltrarPosts() {
+        consttermo = document.getElementById("campoBusca").value.toLowerCase();
+        constposts = obterPostsSalvos();
 
-        const postsFiltrados = posts.filter(p => 
+        constpostsFiltrados = posts.filter(p => 
             p.titulo.toLowerCase().includes(termo) || 
             p.texto.toLowerCase().includes(termo) ||
             p.autor.toLowerCase().includes(termo) ||
@@ -483,14 +483,14 @@
         renderizarPosts(postsFiltrados, false);
     }
 
-    function renderizarPosts(posts, atualizarContador = true) {
-        const container = document.getElementById("listaPosts");
+    functionrenderizarPosts(posts, atualizarContador = true) {
+        constcontainer = document.getElementById("listaPosts");
         if (!container) return;
 
         container.innerHTML = "";
 
         if (atualizarContador) {
-            const contadorElemento = document.getElementById("totalPosts");
+            constcontadorElemento = document.getElementById("totalPosts");
             if (contadorElemento) {
                 contadorElemento.innerText = obterPostsSalvos().length;
             }
@@ -502,10 +502,10 @@
         }
 
         posts.forEach(post => {
-            const artigo = document.createElement("article");
+            constartigo = document.createElement("article");
             artigo.classList.add("post");
 
-            const tagsHTML = post.palavras && post.palavras.length > 0 
+            consttagsHTML = post.palavras && post.palavras.length > 0 
                 ? `<div class="palavras-chave-container">
                     ${post.palavras.map(palavra => `<span class="palavra-chave">#${palavra}</span>`).join('')}
                    </div>`
@@ -534,13 +534,13 @@
         });
     }
 
-    function salvarNoStorage(lista) {
+    functionsalvarNoStorage(lista) {
         localStorage.setItem(CHAVE_STORAGE, JSON.stringify(lista));
     }
 
-    function obterPostsSalvos() {
-        const dados = localStorage.getItem(CHAVE_STORAGE);
-        return dados ? JSON.parse(dados) : [];
+    functionobterPostsSalvos() {
+        constdados = localStorage.getItem(CHAVE_STORAGE);
+        returndados ? JSON.parse(dados) : [];
     }
 </script>
 
