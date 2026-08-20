@@ -1,0 +1,1 @@
+blog empatia e cooperação
