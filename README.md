@@ -444,7 +444,7 @@
 
     functiondeletarPost(id) {
         if (confirm("Deseja realmente remover esta publicação?")) {
-            const posts = obterPostsSalvos().filter(p => p.id !== id);
+            constposts = obterPostsSalvos().filter(p => p.id !== id);
             salvarNoStorage(posts);
             renderizarPosts(posts);
         }
