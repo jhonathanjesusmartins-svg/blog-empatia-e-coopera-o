@@ -1,9 +1,9 @@
-blog empatia e cooperação<!DOCTYPE html>
+blog empatia e cooperação <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog da Empatia e Cooperação</title>
+    <title>EloSocial - Empatia e Cooperação</title>
     
     <style>
         /* --- ESTILOS GLOBAIS --- */
@@ -15,7 +15,7 @@ blog empatia e cooperação<!DOCTYPE html>
         }
 
         body {
-            background-color: #f4f7f6;
+            background-color: #f0f4f1;
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -24,95 +24,135 @@ blog empatia e cooperação<!DOCTYPE html>
         /* --- CABEÇALHO --- */
         header {
             text-align: center;
-            background-color: #2e7d32;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
             color: white;
-            padding: 40px 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 35px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 2.4rem;
+            margin-bottom: 8px;
         }
 
         header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.05rem;
+            opacity: 0.95;
         }
 
-        /* --- CONTEÚDO PRINCIPAL --- */
+        .estatisticas {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
         main {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        /* --- SEÇÃO DO FORMULÁRIO --- */
-        .formulario {
+        .formulario, .feed {
             background: white;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
         }
 
         .formulario h2 {
-            margin-bottom: 15px;
             color: #2e7d32;
+            margin-bottom: 15px;
         }
 
-        input[type="text"], 
-        textarea {
+        input[type="text"], select, textarea {
             width: 100%;
             padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.2s;
         }
 
-        input[type="text"]:focus, 
-        textarea:focus {
+        input[type="text"]:focus, select:focus, textarea:focus {
             border-color: #2e7d32;
         }
 
-        button.btn-publicar {
+        .btn-publicar {
             background-color: #2e7d32;
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 12px;
             font-size: 1rem;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
             width: 100%;
+            transition: background 0.2s;
         }
 
-        button.btn-publicar:hover {
+        .btn-publicar:hover {
             background-color: #1b5e20;
         }
 
-        /* --- CARTÕES DE PUBLICAÇÃO --- */
+        /* --- FEED E PUBLICAÇÕES --- */
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .feed-header h2 {
+            color: #2e7d32;
+        }
+
+        #campoBusca {
+            max-width: 250px;
+            margin-bottom: 0;
+        }
+
         .post {
-            background: white;
+            background: #fafafa;
+            border: 1px solid #eee;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-left: 5px solid #2e7d32;
+        }
+
+        .post-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
         .post h3 {
             color: #1b5e20;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .post p {
-            color: #555;
+            color: #444;
             white-space: pre-wrap;
         }
 
@@ -121,34 +161,54 @@ blog empatia e cooperação<!DOCTYPE html>
             justify-content: space-between;
             align-items: center;
             margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
         }
 
-        .post .data {
-            font-size: 0.85rem;
+        .data {
+            font-size: 0.8rem;
             color: #888;
         }
 
-        .btn-excluir {
-            background-color: #d32f2f;
-            color: white;
+        .btn-curtir {
+            background: #ffebee;
+            color: #c62828;
             border: none;
             padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.8rem;
+            border-radius: 20px;
             cursor: pointer;
-            transition: background 0.3s;
+            font-weight: bold;
+            transition: transform 0.1s;
+        }
+
+        .btn-curtir:active {
+            transform: scale(1.1);
+        }
+
+        .btn-excluir {
+            background: #fff;
+            color: #d32f2f;
+            border: 1px solid #ffcdd2;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
 
         .btn-excluir:hover {
-            background-color: #9a0007;
+            background: #ffebee;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🤝 Blog da Empatia e Cooperação</h1>
-    <p>Compartilhe atitudes positivas e inspire outras pessoas.</p>
+    <h1>🤝 EloSocial</h1>
+    <p>Grandes conquistas nascem quando a empatia conduz e a cooperação realiza.</p>
+    
+    <div class="estatisticas">
+        <span>Total de Atitudes Salvas: <strong id="totalPosts">0</strong></span>
+    </div>
 </header>
 
 <main>
@@ -156,137 +216,163 @@ blog empatia e cooperação<!DOCTYPE html>
     <section class="formulario">
         <h2>Criar Publicação</h2>
 
-        <input 
-            type="text" 
-            id="titulo" 
-            placeholder="Título da publicação">
+        <input type="text" id="titulo" placeholder="Título da publicação">
 
-        <textarea 
-            id="texto" 
-            placeholder="Escreva sua mensagem..." 
-            rows="6"></textarea>
+        <select id="categoria">
+            <option value="Empatia">❤️ Empatia</option>
+            <option value="Cooperação">🤝 Cooperação</option>
+            <option value="Acolhimento">🤗 Acolhimento</option>
+            <option value="Trabalho em Equipe">👥 Trabalho em Equipe</option>
+        </select>
 
-        <button class="btn-publicar" onclick="criarPost()">
-            Publicar
-        </button>
+        <textarea id="texto" placeholder="Compartilhe sua atitude positiva hoje..." rows="4"></textarea>
+
+        <button class="btn-publicar" onclick="criarPost()">Publicar</button>
     </section>
 
-    <section>
-        <h2>Publicações</h2>
+    <section class="feed">
+        <div class="feed-header">
+            <h2>Publicações</h2>
+            <input type="text" id="campoBusca" placeholder="🔍 Buscar..." oninput="filtrarPosts()">
+        </div>
+
         <div id="listaPosts"></div>
     </section>
 
 </main>
 
 <script>
-    // Chave única para o banco de dados do navegador
-    constCHAVE_STORAGE = "blog_empatia_posts";
+    constCHAVE_STORAGE = "elosocial_posts";
 
-    // Posts de exemplo iniciais
     constPOSTS_PADRAO = [
         {
             id: 1,
-            titulo: "O Poder da Empatia no Dia a Dia",
-            texto: "Empatia não é apenas se colocar no lugar do outro, mas ouvir sem julgar. Quando praticamos a escuta ativa, criamos pontes de confiança e tornamos o ambiente ao nosso redor mais acolhedor.",
-            data: "30/07/2026"
+            titulo: "Escuta Ativa no Trabalho",
+            categoria: "Empatia",
+            texto: "Hoje decidi ouvir meus colegas sem interromper. A comunicação fluiu muito melhor!",
+            curtidas: 5,
+            data: "20/08/2026"
         },
         {
             id: 2,
-            titulo: "Cooperação Gera Resultados Incríveis",
-            texto: "Quando trabalhamos juntos em prol de um objetivo comum, dividimos os desafios e multiplicamos as conquistas. O trabalho em equipe transforma ideias em realidade!",
-            data: "30/07/2026"
+            titulo: "Projeto em Equipe",
+            categoria: "Cooperação",
+            texto: "Dividimos as tarefas do projeto e conseguimos entregar tudo antes do prazo.",
+            curtidas: 8,
+            data: "20/08/2026"
         }
     ];
 
-    // Executa assim que a página carregar
     document.addEventListener("DOMContentLoaded", carregarPosts);
 
-    // Carrega os dados do localStorage ou exibe os padrão
     functioncarregarPosts() {
         constdadosSalvos = localStorage.getItem(CHAVE_STORAGE);
-        le posts = [];
+        letposts = dadosSalvos ? JSON.parse(dadosSalvos) : POSTS_PADRAO;
 
-        if (dadosSalvos) {
-            posts = JSON.parse(dadosSalvos);
-        } else {
-            posts = POSTS_PADRAO;
-            salvarNoStorage(posts);
-        }
+        if (!dadosSalvos) salvarNoStorage(posts);
 
         renderizarPosts(posts);
     }
 
-    // Cria um novo post a partir dos dados do formulário
     functioncriarPost() {
         consttituloInput = document.getElementById("titulo");
+        constcategoriaInput = document.getElementById("categoria");
         consttextoInput = document.getElementById("texto");
 
         consttitulo = tituloInput.value.trim();
+        constcategoria = categoriaInput.value;
         consttexto = textoInput.value.trim();
 
-         (titulo === "" || texto === "") {
-            alert("Por favor, preencha o título e a mensagem antes de publicar!") return;
+        if (!titulo || !texto) {
+            alert("Por favor, preencha o título e a mensagem!");
+            return;
         }
 
         constnovoPost = {
-            id: Date.now(), // Gera um ID único
-            titulo: titulo,
-            texto: texto,
-            data: new Date().toLocaleDateString('pt-BR')
+            id: Date.now(),
+            titulo,
+            categoria,
+            texto,
+            curtidas: 0,
+            data: new Date().toLocaleDateString("pt-BR")
         };
 
-        constpostsAtualizados = obterPostsSalvos();
-        postsAtualizados.unshift(novoPost); // Coloca o novo post no topo
-        
-        salvarNoStorage(postsAtualizados);
-        renderizarPosts(postsAtualizados);
+        constposts = obterPostsSalvos();
+        posts.unshift(novoPost);
 
-        // Limpa os campos de texto
+        salvarNoStorage(posts);
+        renderizarPosts(posts);
+
         tituloInput.value = "";
         textoInput.value = "";
     }
 
-    // Deleta uma publicação específica pelo ID
-    functiondeletarPost(id) {
-        if (confirm("Tem certeza que deseja excluir esta publicação?")) {
-            letposts = obterPostsSalvos();
-            posts = posts.filter(post => post.id !== id);
-            
+    functioncurtirPost(id) {
+        constposts = obterPostsSalvos();
+        constpost = posts.find(p => p.id === id);
+        if (post) {
+            post.curtidas += 1;
             salvarNoStorage(posts);
             renderizarPosts(posts);
         }
     }
 
-    // Desenha as publicações na tela
-    functionrenderizarPosts(posts) {
-        constlistaPostsContainer = document.getElementById("listaPosts");
-        listaPostsContainer.innerHTML = "";
+    functiondeletarPost(id) {
+        if (confirm("Deseja excluir esta publicação?")) {
+            const posts = obterPostsSalvos().filter(p => p.id !== id);
+            salvarNoStorage(posts);
+            renderizarPosts(posts);
+        }
+    }
+
+    functionfiltrarPosts() {
+        consttermo = document.getElementById("campoBusca").value.toLowerCase();
+        constposts = obterPostsSalvos();
+        constpostsFiltrados = posts.filter(p => 
+            p.titulo.toLowerCase().includes(termo) || 
+            p.texto.toLowerCase().includes(termo) ||
+            p.categoria.toLowerCase().includes(termo)
+        );
+        renderizarPosts(postsFiltrados, false);
+    }
+
+    functionrenderizarPosts(posts, atualizarContador = true) {
+        constcontainer = document.getElementById("listaPosts");
+        container.innerHTML = "";
+
+        if (atualizarContador) {
+            document.getElementById("totalPosts").innerText = obterPostsSalvos().length;
+        }
 
         posts.forEach(post => {
             constartigo = document.createElement("article");
             artigo.classList.add("post");
 
             artigo.innerHTML = `
+                <div class="post-topo">
+                    <span class="tag">${post.categoria}</span>
+                    <span class="data">${post.data}</span>
+                </div>
                 <h3>${post.titulo}</h3>
                 <p>${post.texto}</p>
                 <div class="post-rodape">
-                    <span class="data">Publicado em: ${post.data}</span>
+                    <button class="btn-curtir" onclick="curtirPost(${post.id})">
+                        ❤️ ${post.curtidas}
+                    </button>
                     <button class="btn-excluir" onclick="deletarPost(${post.id})">
                         Excluir
                     </button>
                 </div>
             `;
 
-            listaPostsContainer.appendChild(artigo);
+            container.appendChild(artigo);
         });
     }
 
-    // Salva o array de posts no localStorage convertido em texto JSON
     functionsalvarNoStorage(lista) {
         localStorage.setItem(CHAVE_STORAGE, JSON.stringify(lista));
     }
 
-    // Obtém o array salvo do localStorage
     functionobterPostsSalvos() {
         constdados = localStorage.getItem(CHAVE_STORAGE);
         returndados ? JSON.parse(dados) : [];
