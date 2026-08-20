@@ -224,7 +224,7 @@
             color: var(--text-dark);
             font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .autor {
@@ -250,12 +250,13 @@
         }
 
         .palavra-chave {
-            background: #f1f5f9;
-            color: #475569;
+            background: #ecfdf5;
+            color: #047857;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             padding: 4px 10px;
             border-radius: 8px;
+            border: 1px solid #a7f3d0;
         }
 
         .post-rodape {
@@ -317,13 +318,13 @@
 
         <div class="form-grid">
             <div class="form-group">
-                <label for="autor">Seu Nome / Autor</label>
+                <label for="autor">Seu Nome</label>
                 <input type="text" id="autor" placeholder="Ex: Maria Silva">
             </div>
 
             <div class="form-group">
-                <label for="titulo">Título</label>
-                <input type="text" id="titulo" placeholder="Ex: Escuta Ativa na Reunião">
+                <label for="titulo">Título da Atitude</label>
+                <input type="text" id="titulo" placeholder="Ex: Escuta Ativa no Trabalho">
             </div>
         </div>
 
@@ -339,33 +340,25 @@
             </div>
 
             <div class="form-group">
-                <label for="palavrasChave">Palavras-chave (separadas por vírgula)</label>
+                <label for="palavrasChave">Palavras-chave / Tags</label>
                 <input type="text" id="palavrasChave" placeholder="Ex: amizade, respeito, escuta">
             </div>
         </div>
 
         <div class="form-group">
             <label for="texto">Sua Mensagem</label>
-            <textarea id="texto" placeholder="Descreva sua atitude ou experiência positiva..." rows="3"></textarea>
+            <textarea id="texto" placeholder="Descreva sua atitude positiva de hoje..." rows="3"></textarea>
         </div>
 
-        <div class="form-group">
-            <label for="modoSalvar">Modo de Salvamento</label>
-            <select id="modoSalvar">
-                <option value="local">💾 Salvar no Navegador (LocalStorage)</option>
-                <option value="arquivo">📥 Baixar Cópia em Arquivo (.json)</option>
-            </select>
-        </div>
-
-        <button class="btn-publicar" onclick="criarPost()">
-            🚀 Publicar Atitude
+        <button type="button" class="btn-publicar" id="btnPublicar">
+            🚀 Publicar Agora
         </button>
     </section>
 
     <section class="card">
         <div class="feed-header">
             <h2>💬 Feed de Impacto</h2>
-            <input type="text" id="campoBusca" placeholder="🔍 Buscar títulos, palavras..." oninput="filtrarPosts()">
+            <input type="text" id="campoBusca" placeholder="🔍 Buscar por palavra..." oninput="filtrarPosts()">
         </div>
 
         <div id="listaPosts"></div>
@@ -374,97 +367,92 @@
 </main>
 
 <script>
-    constCHAVE_STORAGE = "elosocial_posts_v3";
+    const CHAVE_STORAGE = "elosocial_posts_v4";
 
-    constPOSTS_PADRAO = [
+    const POSTS_PADRAO = [
         {
             id: 1,
             autor: "Ana Souza",
-            titulo: "Escuta Ativa no Trabalho",
-            categoria: "Empatia",
-            texto: "Hoje decidi ouvir meus colegas com atenção plena e sem interrupções.",
-            palavras: ["escuta", "respeito", "foco"],
-            curtidas: 12,
+            titulo: "Gesto de Acolhimento",
+            categoria: "Acolhimento",
+            texto: "Recebi um novo colega na equipe e tirei 30 minutos para explicar a rotina com calma e paciência.",
+            palavras: ["gentileza", "acolhimento", "respeito"],
+            curtidas: 14,
             data: "20/08/2026"
         },
         {
             id: 2,
             autor: "Carlos Lima",
-            titulo: "Mutirão de Projetos",
+            titulo: "Mutirão de Cooperação",
             categoria: "Cooperação",
-            texto: "Dividimos as tarefas da semana e ajudamos quem estava sobrecarregado.",
-            palavras: ["ajuda", "equipe", "uniao"],
-            curtidas: 19,
+            texto: "Dividimos as tarefas acumuladas da semana para apoiar quem estava sobrecarregado no time.",
+            palavras: ["uniao", "ajuda", "equipe"],
+            curtidas: 22,
             data: "20/08/2026"
         }
     ];
 
-    document.addEventListener("DOMContentLoaded", carregarPosts);
+    document.addEventListener("DOMContentLoaded", () => {
+        carregarPosts();
+        
+        // Garante que o clique do botão acione a publicação
+        document.getElementById("btnPublicar").addEventListener("click", criarPost);
+    });
 
-    functioncarregarPosts() {
-        constdadosSalvos = localStorage.getItem(CHAVE_STORAGE);
-        letposts = dadosSalvos ? JSON.parse(dadosSalvos) : POSTS_PADRAO;
+    function carregarPosts() {
+        const dadosSalvos = localStorage.getItem(CHAVE_STORAGE);
+        let posts = dadosSalvos ? JSON.parse(dadosSalvos) : POSTS_PADRAO;
 
         if (!dadosSalvos) salvarNoStorage(posts);
 
         renderizarPosts(posts);
     }
 
-    functioncriarPost() {
-        constcampoAutor = document.getElementById("autor");
-        constcampoTitulo = document.getElementById("titulo");
-        constcampoCategoria = document.getElementById("categoria");
-        constcampoPalavras = document.getElementById("palavrasChave");
-        constcampoTexto = document.getElementById("texto");
-        constmodoSalvar = document.getElementById("modoSalvar").value;
+    function criarPost() {
+        const autorVal = document.getElementById("autor").value.trim();
+        const tituloVal = document.getElementById("titulo").value.trim();
+        const categoriaVal = document.getElementById("categoria").value;
+        const palavrasVal = document.getElementById("palavrasChave").value.trim();
+        const textoVal = document.getElementById("texto").value.trim();
 
-        constautor = campoAutor ? campoAutor.value.trim() : "Anônimo";
-        consttitulo = campoTitulo ? campoTitulo.value.trim() : "";
-        constcategoria = campoCategoria ? campoCategoria.value : "Empatia";
-        consttexto = campoTexto ? campoTexto.value.trim() : "";
-        
-        // Converte as palavras-chave em uma lista tratada
-        constpalavrasTratadas = campoPalavras.value
-            .split(",")
-            .map(p => p.trim())
-            .filter(p => p !== "");
-
-        if (titulo === "" || texto === "") {
-            alert("Por favor, preencha o título e o conteúdo da mensagem!");
+        if (tituloVal === "" || textoVal === "") {
+            alert("Por favor, preencha pelo menos o Título e a Mensagem antes de publicar!");
             return;
         }
 
-        constnovoPost = {
+        const listaPalavras = palavrasVal !== "" 
+            ? palavrasVal.split(",").map(p => p.trim()).filter(p => p !== "") 
+            : ["empatia", "atitude"];
+
+        const novoPost = {
             id: Date.now(),
-            autor: autor || "Anônimo",
-            titulo,
-            categoria,
-            texto,
-            palavras: palavrasTratadas,
+            autor: autorVal || "Anônimo",
+            titulo: tituloVal,
+            categoria: categoriaVal,
+            texto: textoVal,
+            palavras: listaPalavras,
             curtidas: 0,
             data: new Date().toLocaleDateString("pt-BR")
         };
 
-        constposts = obterPostsSalvos();
+        const posts = obterPostsSalvos();
         posts.unshift(novoPost);
 
         salvarNoStorage(posts);
         renderizarPosts(posts);
 
-        // Se o modo selecionado for baixar em arquivo .json
-        if (modoSalvar === "arquivo") {
-            baixarArquivoJSON(novoPost);
-        }
+        // Limpa o formulário
+        document.getElementById("autor").value = "";
+        document.getElementById("titulo").value = "";
+        document.getElementById("palavrasChave").value = "";
+        document.getElementById("texto").value = "";
 
-        campoAutor.value = "";
-        campoTitulo.value = "";
-        campoPalavras.value = "";
-        campoTexto.value = "";
+        alert("✨ Sua atitude foi publicada com sucesso!");
     }
 
-    functioncurtirPost(id) {
-        constposts = obterPostsSalvos();
-        constpost = posts.find(p => p.id === id);
+    function curtirPost(id) {
+        const posts = obterPostsSalvos();
+        const post = posts.find(p => p.id === id);
         if (post) {
             post.curtidas += 1;
             salvarNoStorage(posts);
@@ -472,22 +460,19 @@
         }
     }
 
-    functiondeletarPost(id) {
-        if (confirm("Deseja realmente remover esta publicação?")) {
-            constposts = obterPostsSalvos().filter(p => p.id !== id);
+    function deletarPost(id) {
+        if (confirm("Deseja realmente excluir esta publicação?")) {
+            const posts = obterPostsSalvos().filter(p => p.id !== id);
             salvarNoStorage(posts);
             renderizarPosts(posts);
         }
     }
 
-    functionfiltrarPosts() {
-        constcampoBusca = document.getElementById("campoBusca");
-        if(!campoBusca)return;
+    function filtrarPosts() {
+        const termo = document.getElementById("campoBusca").value.toLowerCase();
+        const posts = obterPostsSalvos();
 
-        consttermo = campoBusca.value.toLowerCase();
-        constposts = obterPostsSalvos();
-
-        constpostsFiltrados = posts.filter(p => 
+        const postsFiltrados = posts.filter(p => 
             p.titulo.toLowerCase().includes(termo) || 
             p.texto.toLowerCase().includes(termo) ||
             p.autor.toLowerCase().includes(termo) ||
@@ -498,15 +483,15 @@
         renderizarPosts(postsFiltrados, false);
     }
 
-    functionrenderizarPosts(posts, atualizarContador = true) {
-        constcontainer = document.getElementById("listaPosts");
-        if(!container)return;
+    function renderizarPosts(posts, atualizarContador = true) {
+        const container = document.getElementById("listaPosts");
+        if (!container) return;
 
         container.innerHTML = "";
 
-        if(atualizarContador) {
-            constcontadorElemento = document.getElementById("totalPosts");
-            if(contadorElemento) {
+        if (atualizarContador) {
+            const contadorElemento = document.getElementById("totalPosts");
+            if (contadorElemento) {
                 contadorElemento.innerText = obterPostsSalvos().length;
             }
         }
@@ -517,10 +502,10 @@
         }
 
         posts.forEach(post => {
-            constartigo = document.createElement("article");
+            const artigo = document.createElement("article");
             artigo.classList.add("post");
 
-            consttagsHTML = post.palavras && post.palavras.length > 0 
+            const tagsHTML = post.palavras && post.palavras.length > 0 
                 ? `<div class="palavras-chave-container">
                     ${post.palavras.map(palavra => `<span class="palavra-chave">#${palavra}</span>`).join('')}
                    </div>`
@@ -549,23 +534,13 @@
         });
     }
 
-    functionsalvarNoStorage(lista) {
+    function salvarNoStorage(lista) {
         localStorage.setItem(CHAVE_STORAGE, JSON.stringify(lista));
     }
 
-    functionobterPostsSalvos() {
-        constdados = localStorage.getItem(CHAVE_STORAGE);
-        returndados ? JSON.parse(dados) : [];
-    }
-
-    functionbaixarArquivoJSON(post) {
-        constdataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(post, null, 2));
-        constdownloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", `post_${post.id}.json`);
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
+    function obterPostsSalvos() {
+        const dados = localStorage.getItem(CHAVE_STORAGE);
+        return dados ? JSON.parse(dados) : [];
     }
 </script>
 
