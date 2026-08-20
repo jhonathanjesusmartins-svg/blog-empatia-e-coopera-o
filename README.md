@@ -482,7 +482,7 @@
 
     functionfiltrarPosts() {
         constcampoBusca = document.getElementById("campoBusca");
-        if (!campoBusca) return;
+        if(!campoBusca)return;
 
         consttermo = campoBusca.value.toLowerCase();
         constposts = obterPostsSalvos();
@@ -500,13 +500,13 @@
 
     functionrenderizarPosts(posts, atualizarContador = true) {
         constcontainer = document.getElementById("listaPosts");
-        if (!container) return;
+        if(!container)return;
 
         container.innerHTML = "";
 
-        if (atualizarContador) {
+        if(atualizarContador) {
             constcontadorElemento = document.getElementById("totalPosts");
-            if (contadorElemento) {
+            if(contadorElemento) {
                 contadorElemento.innerText = obterPostsSalvos().length;
             }
         }
