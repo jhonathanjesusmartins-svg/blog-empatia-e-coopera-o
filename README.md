@@ -202,9 +202,9 @@ blog empatia e cooperação<!DOCTYPE html>
     document.addEventListener("DOMContentLoaded", carregarPosts);
 
     // Carrega os dados do localStorage ou exibe os padrão
-    function carregarPosts() {
-        const dadosSalvos = localStorage.getItem(CHAVE_STORAGE);
-        let posts = [];
+    functioncarregarPosts() {
+        constdadosSalvos = localStorage.getItem(CHAVE_STORAGE);
+        le posts = [];
 
         if (dadosSalvos) {
             posts = JSON.parse(dadosSalvos);
@@ -217,26 +217,25 @@ blog empatia e cooperação<!DOCTYPE html>
     }
 
     // Cria um novo post a partir dos dados do formulário
-    function criarPost() {
-        const tituloInput = document.getElementById("titulo");
-        const textoInput = document.getElementById("texto");
+    functioncriarPost() {
+        consttituloInput = document.getElementById("titulo");
+        consttextoInput = document.getElementById("texto");
 
-        const titulo = tituloInput.value.trim();
-        const texto = textoInput.value.trim();
+        consttitulo = tituloInput.value.trim();
+        consttexto = textoInput.value.trim();
 
-        if (titulo === "" || texto === "") {
-            alert("Por favor, preencha o título e a mensagem antes de publicar!");
-            return;
+         (titulo === "" || texto === "") {
+            alert("Por favor, preencha o título e a mensagem antes de publicar!") return;
         }
 
-        const novoPost = {
+        constnovoPost = {
             id: Date.now(), // Gera um ID único
             titulo: titulo,
             texto: texto,
             data: new Date().toLocaleDateString('pt-BR')
         };
 
-        const postsAtualizados = obterPostsSalvos();
+        constpostsAtualizados = obterPostsSalvos();
         postsAtualizados.unshift(novoPost); // Coloca o novo post no topo
         
         salvarNoStorage(postsAtualizados);
@@ -248,9 +247,9 @@ blog empatia e cooperação<!DOCTYPE html>
     }
 
     // Deleta uma publicação específica pelo ID
-    function deletarPost(id) {
+    functiondeletarPost(id) {
         if (confirm("Tem certeza que deseja excluir esta publicação?")) {
-            let posts = obterPostsSalvos();
+            letposts = obterPostsSalvos();
             posts = posts.filter(post => post.id !== id);
             
             salvarNoStorage(posts);
@@ -259,12 +258,12 @@ blog empatia e cooperação<!DOCTYPE html>
     }
 
     // Desenha as publicações na tela
-    function renderizarPosts(posts) {
-        const listaPostsContainer = document.getElementById("listaPosts");
+    functionrenderizarPosts(posts) {
+        constlistaPostsContainer = document.getElementById("listaPosts");
         listaPostsContainer.innerHTML = "";
 
         posts.forEach(post => {
-            const artigo = document.createElement("article");
+            constartigo = document.createElement("article");
             artigo.classList.add("post");
 
             artigo.innerHTML = `
@@ -283,14 +282,14 @@ blog empatia e cooperação<!DOCTYPE html>
     }
 
     // Salva o array de posts no localStorage convertido em texto JSON
-    function salvarNoStorage(lista) {
+    functionsalvarNoStorage(lista) {
         localStorage.setItem(CHAVE_STORAGE, JSON.stringify(lista));
     }
 
     // Obtém o array salvo do localStorage
-    function obterPostsSalvos() {
-        const dados = localStorage.getItem(CHAVE_STORAGE);
-        return dados ? JSON.parse(dados) : [];
+    functionobterPostsSalvos() {
+        constdados = localStorage.getItem(CHAVE_STORAGE);
+        returndados ? JSON.parse(dados) : [];
     }
 </script>
 
