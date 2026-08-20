@@ -6,13 +6,11 @@
     <title>EloSocial - Empatia & Cooperação</title>
     
     <style>
-        /* --- IMPORTAÇÃO DE FONTE E VARIÁVEIS DE CORES --- */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
         :root {
             --primary: #10b981;
             --primary-hover: #059669;
-            --primary-light: #ecfdf5;
             --secondary: #6366f1;
             --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f766e 100%);
             --card-bg: rgba(255, 255, 255, 0.95);
@@ -20,7 +18,6 @@
             --text-muted: #64748b;
             --danger: #ef4444;
             --danger-light: #fef2f2;
-            --accent-yellow: #f59e0b;
         }
 
         * {
@@ -38,12 +35,10 @@
             padding: 30px 15px;
         }
 
-        /* --- CABEÇALHO --- */
         header {
             text-align: center;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
             padding: 40px 25px;
@@ -62,15 +57,13 @@
             background: linear-gradient(to right, #34d399, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
         }
 
         header p {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: #e2e8f0;
             max-width: 600px;
             margin: 0 auto 20px;
-            line-height: 1.5;
         }
 
         .estatisticas {
@@ -83,7 +76,6 @@
             font-weight: 600;
             font-size: 0.95rem;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .estatisticas strong {
@@ -91,13 +83,11 @@
             font-size: 1.2rem;
         }
 
-        /* --- CONTAINER PRINCIPAL --- */
         main {
             max-width: 850px;
             margin: 0 auto;
         }
 
-        /* --- CARDS & FORMULÁRIO --- */
         .card {
             background: var(--card-bg);
             padding: 30px;
@@ -112,9 +102,16 @@
             font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
         }
 
         .form-group {
@@ -128,15 +125,14 @@
             color: var(--text-muted);
             margin-bottom: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         input[type="text"], select, textarea {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
             background: #f8fafc;
             color: var(--text-dark);
@@ -153,18 +149,14 @@
             background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: white;
             border: none;
-            padding: 16px;
-            font-size: 1.05rem;
+            padding: 14px;
+            font-size: 1rem;
             font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s ease;
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
 
         .btn-publicar:hover {
@@ -172,7 +164,6 @@
             box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4);
         }
 
-        /* --- FEED --- */
         .feed-header {
             display: flex;
             justify-content: space-between;
@@ -191,7 +182,6 @@
             background: #ffffff;
         }
 
-        /* --- CARDS DE PUBLICAÇÃO --- */
         .post {
             background: #ffffff;
             border-radius: 16px;
@@ -214,11 +204,6 @@
             background: linear-gradient(to bottom, var(--primary), var(--secondary));
         }
 
-        .post:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
         .post-topo {
             display: flex;
             justify-content: space-between;
@@ -231,19 +216,22 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 0.3px;
+            background: #e0e7ff;
+            color: #4338ca;
         }
-
-        .tag-empatia { background: #fce7f3; color: #be185d; }
-        .tag-cooperacao { background: #e0e7ff; color: #4338ca; }
-        .tag-acolhimento { background: #fef3c7; color: #b45309; }
-        .tag-equipe { background: #dcfce7; color: #15803d; }
 
         .post h3 {
             color: var(--text-dark);
             font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
+        }
+
+        .autor {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 12px;
         }
 
         .post p {
@@ -251,13 +239,29 @@
             font-size: 1rem;
             line-height: 1.6;
             white-space: pre-wrap;
+            margin-bottom: 15px;
+        }
+
+        .palavras-chave-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .palavra-chave {
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
         }
 
         .post-rodape {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
             padding-top: 15px;
             border-top: 1px solid #f1f5f9;
         }
@@ -268,45 +272,25 @@
             color: var(--text-muted);
         }
 
-        .acoes {
-            display: flex;
-            gap: 10px;
-        }
-
         .btn-curtir {
             background: #fff1f2;
             color: #e11d48;
             border: 1px solid #fecdd3;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-curtir:hover {
-            background: #ffe4e6;
-            transform: scale(1.05);
-        }
-
-        .btn-curtir:active {
-            transform: scale(0.95);
+            font-size: 0.85rem;
         }
 
         .btn-excluir {
             background: transparent;
             color: var(--text-muted);
             border: none;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
         }
 
         .btn-excluir:hover {
@@ -329,37 +313,59 @@
 <main>
 
     <section class="card">
-        <h2>✨ Compartilhar Inspiração</h2>
+        <h2>✨ Publicar Nova Atitude</h2>
 
-        <div class="form-group">
-            <label for="titulo">Título</label>
-            <input type="text" id="titulo" placeholder="Ex: Gestual de Apoio no Trabalho">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="autor">Seu Nome / Autor</label>
+                <input type="text" id="autor" placeholder="Ex: Maria Silva">
+            </div>
+
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" placeholder="Ex: Escuta Ativa na Reunião">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="categoria">Categoria</label>
-            <select id="categoria">
-                <option value="Empatia">❤️ Empatia</option>
-                <option value="Cooperação">🤝 Cooperação</option>
-                <option value="Acolhimento">🤗 Acolhimento</option>
-                <option value="Trabalho em Equipe">👥 Trabalho em Equipe</option>
-            </select>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select id="categoria">
+                    <option value="Empatia">❤️ Empatia</option>
+                    <option value="Cooperação">🤝 Cooperação</option>
+                    <option value="Acolhimento">🤗 Acolhimento</option>
+                    <option value="Trabalho em Equipe">👥 Trabalho em Equipe</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="palavrasChave">Palavras-chave (separadas por vírgula)</label>
+                <input type="text" id="palavrasChave" placeholder="Ex: amizade, respeito, escuta">
+            </div>
         </div>
 
         <div class="form-group">
             <label for="texto">Sua Mensagem</label>
-            <textarea id="texto" placeholder="Descreva sua atitude ou experiência positiva..." rows="4"></textarea>
+            <textarea id="texto" placeholder="Descreva sua atitude ou experiência positiva..." rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="modoSalvar">Modo de Salvamento</label>
+            <select id="modoSalvar">
+                <option value="local">💾 Salvar no Navegador (LocalStorage)</option>
+                <option value="arquivo">📥 Baixar Cópia em Arquivo (.json)</option>
+            </select>
         </div>
 
         <button class="btn-publicar" onclick="criarPost()">
-            <span>🚀 Publicar Atitude</span>
+            🚀 Publicar Atitude
         </button>
     </section>
 
     <section class="card">
         <div class="feed-header">
             <h2>💬 Feed de Impacto</h2>
-            <input type="text" id="campoBusca" placeholder="🔍 Buscar mensagens..." oninput="filtrarPosts()">
+            <input type="text" id="campoBusca" placeholder="🔍 Buscar títulos, palavras..." oninput="filtrarPosts()">
         </div>
 
         <div id="listaPosts"></div>
@@ -368,22 +374,26 @@
 </main>
 
 <script>
-    constCHAVE_STORAGE = "elosocial_posts_v2";
+    constCHAVE_STORAGE = "elosocial_posts_v3";
 
     constPOSTS_PADRAO = [
         {
             id: 1,
+            autor: "Ana Souza",
             titulo: "Escuta Ativa no Trabalho",
             categoria: "Empatia",
-            texto: "Hoje decidi ouvir meus colegas com atenção plena e sem interrupções. A sintonia do time melhorou visivelmente!",
+            texto: "Hoje decidi ouvir meus colegas com atenção plena e sem interrupções.",
+            palavras: ["escuta", "respeito", "foco"],
             curtidas: 12,
             data: "20/08/2026"
         },
         {
             id: 2,
+            autor: "Carlos Lima",
             titulo: "Mutirão de Projetos",
             categoria: "Cooperação",
-            texto: "Dividimos as tarefas pendentes da semana e conseguimos apoiar quem estava sobrecarregado. Juntos fomos muito mais longe!",
+            texto: "Dividimos as tarefas da semana e ajudamos quem estava sobrecarregado.",
+            palavras: ["ajuda", "equipe", "uniao"],
             curtidas: 19,
             data: "20/08/2026"
         }
@@ -393,7 +403,7 @@
 
     functioncarregarPosts() {
         constdadosSalvos = localStorage.getItem(CHAVE_STORAGE);
-        let posts = dadosSalvos ? JSON.parse(dadosSalvos) : POSTS_PADRAO;
+        letposts = dadosSalvos ? JSON.parse(dadosSalvos) : POSTS_PADRAO;
 
         if (!dadosSalvos) salvarNoStorage(posts);
 
@@ -401,24 +411,36 @@
     }
 
     functioncriarPost() {
+        constcampoAutor = document.getElementById("autor");
         constcampoTitulo = document.getElementById("titulo");
         constcampoCategoria = document.getElementById("categoria");
+        constcampoPalavras = document.getElementById("palavrasChave");
         constcampoTexto = document.getElementById("texto");
+        constmodoSalvar = document.getElementById("modoSalvar").value;
 
+        constautor = campoAutor ? campoAutor.value.trim() : "Anônimo";
         consttitulo = campoTitulo ? campoTitulo.value.trim() : "";
         constcategoria = campoCategoria ? campoCategoria.value : "Empatia";
         consttexto = campoTexto ? campoTexto.value.trim() : "";
+        
+        // Converte as palavras-chave em uma lista tratada
+        constpalavrasTratadas = campoPalavras.value
+            .split(",")
+            .map(p => p.trim())
+            .filter(p => p !== "");
 
         if (titulo === "" || texto === "") {
-            alert("Por favor, preencha o título e o conteúdo antes de publicar!");
+            alert("Por favor, preencha o título e o conteúdo da mensagem!");
             return;
         }
 
         constnovoPost = {
             id: Date.now(),
+            autor: autor || "Anônimo",
             titulo,
             categoria,
             texto,
+            palavras: palavrasTratadas,
             curtidas: 0,
             data: new Date().toLocaleDateString("pt-BR")
         };
@@ -429,9 +451,17 @@
         salvarNoStorage(posts);
         renderizarPosts(posts);
 
+        // Se o modo selecionado for baixar em arquivo .json
+        if (modoSalvar === "arquivo") {
+            baixarArquivoJSON(novoPost);
+        }
+
+        campoAutor.value = "";
         campoTitulo.value = "";
+        campoPalavras.value = "";
         campoTexto.value = "";
     }
+
     functioncurtirPost(id) {
         constposts = obterPostsSalvos();
         constpost = posts.find(p => p.id === id);
@@ -460,20 +490,12 @@
         constpostsFiltrados = posts.filter(p => 
             p.titulo.toLowerCase().includes(termo) || 
             p.texto.toLowerCase().includes(termo) ||
-            p.categoria.toLowerCase().includes(termo)
+            p.autor.toLowerCase().includes(termo) ||
+            p.categoria.toLowerCase().includes(termo) ||
+            (p.palavras && p.palavras.some(palavra => palavra.toLowerCase().includes(termo)))
         );
 
         renderizarPosts(postsFiltrados, false);
-    }
-
-    functionobterClasseTag(categoria) {
-        switch (categoria) {
-            case "Empatia": return "tag-empatia";
-            case "Cooperação": return "tag-cooperacao";
-            case "Acolhimento": return "tag-acolhimento";
-            case "Trabalho em Equipe": return "tag-equipe";
-            default: return "tag-empatia";
-        }
     }
 
     functionrenderizarPosts(posts, atualizarContador = true) {
@@ -498,21 +520,25 @@
             constartigo = document.createElement("article");
             artigo.classList.add("post");
 
-            constclasseTag = obterClasseTag(post.categoria);
+            consttagsHTML = post.palavras && post.palavras.length > 0 
+                ? `<div class="palavras-chave-container">
+                    ${post.palavras.map(palavra => `<span class="palavra-chave">#${palavra}</span>`).join('')}
+                   </div>`
+                : '';
 
             artigo.innerHTML = `
                 <div class="post-topo">
-                    <span class="tag ${classeTag}">${post.categoria}</span>
+                    <span class="tag">${post.categoria}</span>
                     <span class="data">${post.data}</span>
                 </div>
                 <h3>${post.titulo}</h3>
+                <div class="autor">Por: ${post.autor}</div>
                 <p>${post.texto}</p>
+                ${tagsHTML}
                 <div class="post-rodape">
-                    <div class="acoes">
-                        <button class="btn-curtir" onclick="curtirPost(${post.id})">
-                            ❤️ <span>${post.curtidas}</span>
-                        </button>
-                    </div>
+                    <button class="btn-curtir" onclick="curtirPost(${post.id})">
+                        ❤️ ${post.curtidas}
+                    </button>
                     <button class="btn-excluir" onclick="deletarPost(${post.id})">
                         🗑️ Excluir
                     </button>
@@ -530,6 +556,16 @@
     functionobterPostsSalvos() {
         constdados = localStorage.getItem(CHAVE_STORAGE);
         returndados ? JSON.parse(dados) : [];
+    }
+
+    functionbaixarArquivoJSON(post) {
+        constdataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(post, null, 2));
+        constdownloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `post_${post.id}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
     }
 </script>
 
